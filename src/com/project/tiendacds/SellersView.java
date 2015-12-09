@@ -163,7 +163,7 @@ public class SellersView extends JFrame {
         content.add(comboAllAlbums);
         
         
-        jLabelsotano = new JLabel("Pass to sotano(Selected)", JLabel.LEFT);
+        jLabelsotano = new JLabel("Pass to Bargain Basement(Selected)", JLabel.LEFT);
         jLabelsotano.setBounds(470, 140, 300, 30);
         content.add(jLabelsotano);
         
@@ -339,7 +339,7 @@ public class SellersView extends JFrame {
         
         //--------------------------
         
-        JButton passSotanoButton = new JButton("Pass to sotano this Album(Selected)");
+        JButton passSotanoButton = new JButton("Pass to Bargain Basement this Album(Selected)");
         
         passSotanoButton.setBounds(780, 220, 200, 40);
         content.add(passSotanoButton, BorderLayout.CENTER);
