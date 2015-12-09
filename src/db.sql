@@ -1,3 +1,7 @@
+CREATE DATABASE disc_store_db;
+
+
+
 CREATE TABLE `disc_store_db`.`seller` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
