@@ -74,7 +74,7 @@ public class SellersView extends JFrame {
     static int screenSize = 500;
 
 
-    // objetos services (SQL access)
+    // objects services (SQL access)
     public static SellerServices sellerServices = new SellerServices();
 
     public static AlbumServices albumServices = new AlbumServices();
@@ -115,7 +115,7 @@ public class SellersView extends JFrame {
         content.add(jLabelMoneySellers);
         
         
-        JLabel jLabelMoneySellersTitle = new JLabel("Select something for show earnings(selected seller)", JLabel.LEFT);
+        JLabel jLabelMoneySellersTitle = new JLabel("Select seller to show Earnings)", JLabel.LEFT);
         jLabelMoneySellersTitle.setBounds(500, 350, 500, 30);
         content.add(jLabelMoneySellersTitle);
         
@@ -132,7 +132,7 @@ public class SellersView extends JFrame {
         content.add(comboMoneySellers);
         
         
-        jLabelallSellers = new JLabel("Register an Album for this seller(Selected)", JLabel.LEFT);
+        jLabelallSellers = new JLabel("Register an Album for this seller", JLabel.LEFT);
         jLabelallSellers.setBounds(20, 220, 300, 30);
         content.add(jLabelallSellers);
 
@@ -163,7 +163,7 @@ public class SellersView extends JFrame {
         content.add(comboAllAlbums);
         
         
-        jLabelsotano = new JLabel("Pass to Bargain Basement(Selected)", JLabel.LEFT);
+        jLabelsotano = new JLabel("Send to Bargain Basement", JLabel.LEFT);
         jLabelsotano.setBounds(470, 140, 300, 30);
         content.add(jLabelsotano);
         
@@ -242,8 +242,12 @@ public class SellersView extends JFrame {
                 }
 
                 if (sellerServices.insert(newSeller)) {
-                    message.setText("Seller new successfull");
+                    message.setText("Seller new successful");
                     newSeller.setId(sellerServices.getLastInsert());
+
+                    nameSellerTextArea.setText("");
+                    phoneSellerTextArea.setText("");
+
                     comboAllSellers.addItem(newSeller);
                     comboMoneySellers.addItem(newSeller);
 
@@ -288,7 +292,7 @@ public class SellersView extends JFrame {
                     Seller sellerSeleted = (Seller) comboAllSellers.getSelectedItem();
 
                     if (albumServices.insert(newAlbum, sellerSeleted)) {
-                        message.setText("Album new successfull");
+                        message.setText("Album new successful");
                         newAlbum.setId(albumServices.getLastInsert());
                         
                         comboAllAlbums.addItem(newAlbum);
@@ -339,7 +343,7 @@ public class SellersView extends JFrame {
         
         //--------------------------
         
-        JButton passSotanoButton = new JButton("Pass to Bargain Basement this Album(Selected)");
+        JButton passSotanoButton = new JButton("Send to Bargain Basement");
         
         passSotanoButton.setBounds(780, 220, 200, 40);
         content.add(passSotanoButton, BorderLayout.CENTER);
@@ -355,7 +359,7 @@ public class SellersView extends JFrame {
                         comboAllAlbums.removeItem(albumSeleted);
                         comboSotanoAlbums.removeItem(albumSeleted);
 
-                        message.setText("Album " + albumSeleted.getTitle()+ "was to pass to the Basement");
+                        message.setText("Album " + albumSeleted.getTitle()+ "was sent to the Basement");
                     }
                 
                 }

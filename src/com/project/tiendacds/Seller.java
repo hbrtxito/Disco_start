@@ -15,7 +15,7 @@ public class Seller implements Serializable{
     
     private int id;// id en la tabla
 
-    //campos con los datos de la tabla
+    //fields in the table
     private String name;
     private String phone;
 
