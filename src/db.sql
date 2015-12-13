@@ -61,5 +61,10 @@ ADD COLUMN `en_sotano` INT NULL DEFAULT 0 AFTER `seller_id`;
 ALTER TABLE `disc_store_db`.`album` 
 ADD COLUMN `sold_on` INT NULL DEFAULT 0 AFTER `en_sotano`;
 
+ALTER TABLE `disc_store_db`.`album`
+ADD COLUMN `created_on` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP AFTER `sold_on`;
+
+
+
 
 

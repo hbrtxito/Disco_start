@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.project.tiendacds;
 
 import java.sql.PreparedStatement;
@@ -20,9 +16,9 @@ import java.util.logging.Logger;
  */
 public class AlbumServices {
 
-    // Helper object to connect the database
+	//Object to Connect the data base
     public JdbcHelper jdbcHelper = new JdbcHelper();
-	//Fields in the database that we can retrieve
+	//Field that We can get from the table
     String[] columns = {"artist_name", "title", "price", "id", "seller_id","en_sotano" ,"sold_on"};
 
     public Album getByIndex(String id) {
@@ -54,13 +50,13 @@ public class AlbumServices {
         return null;
     }
 /**
- * Metodo para retornar un listado de albunes por seller dado
+ * Method to return a list of albums  by a given Seller
  * params - seller_id
  */
     public List<Album> getBySellerId(String seller_id) {
 
         try {
-            // Same methodology as before
+// usamos el helper para hacer el select
             ResultSet result = jdbcHelper.select("album", columns, " seller_id = " + seller_id);
 
             List<Album> allAlbums = null;
@@ -72,7 +68,7 @@ public class AlbumServices {
                 }
 
                 Album album = new Album();
-                // retrieving data
+                // to return the data
                 album.setArtistName(result.getString("artist_name"));
                 album.setTitle(result.getString("title"));
                 album.setPrice(result.getInt("price"));
@@ -83,21 +79,21 @@ public class AlbumServices {
 
                 allAlbums.add(album);//add the album to the list
             }
-            return allAlbums;// return the list of album
+            return allAlbums;// return the list of the albums
         } catch (Exception e) {
 
         }
         return null;
     }
 /**
- * GETALL ALBUMS - look for all the albums with a given condition
- *
+ * Methd to get a album list given a condition
+ * params - condition
  */
     public List<Album> getAllAlbums(String condition) {
 
         try {
 
-            ResultSet result = jdbcHelper.select("album", columns, condition);//helper need it
+            ResultSet result = jdbcHelper.select("album", columns, condition);//Using the helper
 
             List<Album> allAlbums = null;
 
@@ -118,7 +114,7 @@ public class AlbumServices {
 
                 allAlbums.add(album);//add it to the returned list
             }
-            return allAlbums;//return all the list
+            return allAlbums;// returning the albums list
         } catch (Exception e) {
 
         }
@@ -126,48 +122,50 @@ public class AlbumServices {
     }
 
 /**
- * MEthod to insert an Album in the database
- *
- * params - object album and seller object
+ * Method to insert an album   in the database
+ * params - object album y object seller
  */
     public boolean insert(Album album, Seller seller) {
 
-        try {
-		//Sql insert query
-            String sql = "INSERT INTO album (artist_name, title , price,seller_id) VALUES (?,?,?,?)";
+        
+        if(album != null && seller != null){
+            try {
+                    //Query SQL
+                String sql = "INSERT INTO album (artist_name, title , price,seller_id) VALUES (?,?,?,?)";
 
-            PreparedStatement statement = jdbcHelper.getConnection().prepareStatement(sql);
-		    // Stabilising the entry parameters of the query sql
-            statement.setString(1, album.getArtistName());
-            statement.setString(2, album.getTitle());
-            statement.setDouble(3, album.getPrice());
-            statement.setInt(4, seller.getId());
+                PreparedStatement statement = jdbcHelper.getConnection().prepareStatement(sql);
+                    // Setting the params to entry of the sql query
+                statement.setString(1, album.getArtistName());
+                statement.setString(2, album.getTitle());
+                statement.setDouble(3, album.getPrice());
+                statement.setInt(4, seller.getId());
 
-		    //Executing query
-            int rowsInserted = statement.executeUpdate();
-            if (rowsInserted > 0) {//if enter here is because the execution was correct
-                System.out.println("A new Album was inserted successfully!");
-                return true;
+                    //Executing the query  SQL
+                int rowsInserted = statement.executeUpdate();
+                if (rowsInserted > 0) {//if it came here is because the insertion was correct
+                    System.out.println("A new Album was inserted successfully!");
+                    return true;
+                }
+            } catch (SQLException ex) {
+                System.out.println("error: " + ex.getMessage());
             }
-        } catch (SQLException ex) {
-            System.out.println("error: " + ex.getMessage());
         }
-        return false;// Insertion incorrect
+        return false;// no se inserto
     }
     
 /**
- * To put an album to the sotano or basemant
+ * Method to send to the Bargain or Sotano an specific album
  * params - object album
  */
     public boolean passSotano(Album album) {
 
         try {
-            //Sentencia SQL UPDATE
+//Sentencia SQL UPDATE
             String sql = "UPDATE album SET en_sotano=1 WHERE id = " + album.getId();
 
             PreparedStatement statement = jdbcHelper.getConnection().prepareStatement(sql);
             
-            int rowsInserted = statement.executeUpdate();// Execution of the update
+            int rowsInserted = statement.executeUpdate();// Executing the update
             if (rowsInserted > 0) {
                 System.out.println("Update Album - pass sotano!");
                 return true;
@@ -184,17 +182,17 @@ public class AlbumServices {
 
     }
     /**
- * To return a album list with a given condition (String)
- * params - str criterio de busqueda
+ * Method to return the album list with a given Criteria or condition
+ * params - str Given Criteria
  */
     public List<Album> getByTitle(String str) {
 
         try {
-		    //this will execute a condition in the database
+		//Sending a condition to the function to execute in the database
             ResultSet result = jdbcHelper.select("album", columns, " title like '%" + str + "%' OR artist_name like '%" + str +"%'");
             List<Album> allAlbums = null;
 
-            while (result.next()) {// if in the database there are some album that contains the search , enters here
+            while (result.next()) {// If there are register in the databasewith the condition given  it will enter the loop
 
                 if (allAlbums == null) {
                     allAlbums = new ArrayList<>();
@@ -202,7 +200,7 @@ public class AlbumServices {
 
                 Album album = new Album();
 
-		        //Get the result of the data base
+		        //To get the data from the database
                 album.setArtistName(result.getString("artist_name"));
                 album.setTitle(result.getString("title"));
                 album.setPrice(result.getInt("price"));
@@ -213,11 +211,34 @@ public class AlbumServices {
                 
                 allAlbums.add(album);
             }
-		// return albums
+		// to return the album list that contain within in the condition
             return allAlbums;
         } catch (Exception e) {
 
         }
         return null;
+    }
+    
+    /**
+ * Method to send the the Bargain store after 30 days
+ * params - ninguno
+ */
+    public boolean passSotanoAutomatically() {
+
+        try {
+            //Query Sentence UPDATE to send album that are more than 30 dias registered
+            String sql = "update disc_store_db.album set en_sotano = 1 where TIMESTAMPDIFF(DAY, created_on, CURDATE()) > 29 AND sold_on = 0" ;
+
+            PreparedStatement statement = jdbcHelper.getConnection().prepareStatement(sql);
+            
+            int rowsInserted = statement.executeUpdate();// Executing the update
+            if (rowsInserted > 0) {
+                System.out.println("passSotanoAutomatically method was executed! " + rowsInserted + " albums were moved to sotano."  );
+                return true;
+            }
+        } catch (SQLException ex) {
+            System.out.println("error: " + ex.getMessage());
+        }
+        return false;
     }
 }

@@ -11,7 +11,7 @@ import java.util.Date;
 
 /**
  * Class Album, data will be save in the Album table
- * * @author
+ * * @author Hbrtxito
  */
 public class Album {
     private int id;// This is the id in the table
