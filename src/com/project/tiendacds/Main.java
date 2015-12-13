@@ -37,7 +37,7 @@ public class Main {
     public static void main(String[] args) {
 
         sellersView = new SellersView();// To show the Gui Sellers
-        
+        System.out.println(java.util.Calendar.getInstance().getTime());
     }
     
 }

@@ -5,6 +5,10 @@
  */
 package com.project.tiendacds;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * Class Album, data will be save in the Album table
  * * @author
@@ -18,7 +22,8 @@ public class Album {
     private double price;
     private int inSotano;
     private int soldOn;
-    
+
+
     //relationship with the sellers table
     private int seller_id;
 
@@ -81,7 +86,7 @@ public class Album {
 //To string Method
     @Override
     public String toString() {
-        return "Album{" + "id=" + id + ", artistName=" + artistName + ", title=" + title + ", price=" + price + ", seller_id=" + seller_id + '}';
+        return "ID: " + id +  "    Artist: " + artistName + "    Album: " + title + "    Price: " + price + "    Seller ID: " + seller_id ;
     }
 
 }

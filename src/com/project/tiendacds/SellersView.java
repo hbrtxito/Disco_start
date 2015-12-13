@@ -34,12 +34,12 @@ import javax.swing.WindowConstants;
 
 /**
  *
- * @author
+ * @author Hbrtxito
  */
 public class SellersView extends JFrame {
 
 
-// componentes visuales
+//Visual Components
     static JTextArea nameSellerTextArea;
     static JTextArea phoneSellerTextArea;
     static JTextArea resolutionTextArea;
@@ -58,6 +58,7 @@ public class SellersView extends JFrame {
 
     static JLabel jLabelNameSeller;
     static JLabel jLabelPhoneSeller;
+    static JLabel jLabelDateSale;
 
     static JLabel jLabelallSellers;
     static JLabel jLabelVenta;
@@ -90,89 +91,107 @@ public class SellersView extends JFrame {
         content.setLayout(null);
 
         content.setBackground(Color.ORANGE);
-        
+
+        // labels -NAME SELLER
         jLabelNameSeller = new JLabel("Name Seller", JLabel.LEFT);
         jLabelNameSeller.setBounds(20, 10, 300, 30);
         content.add(jLabelNameSeller);
 
+        //Text area - Seller Name
         nameSellerTextArea = new JTextArea("");
         nameSellerTextArea.setBounds(20, 40, 200, 40);
         content.add(nameSellerTextArea);
 
-        jLabelNameSeller = new JLabel("Phone seller", JLabel.LEFT);
-        jLabelNameSeller.setBounds(20, 80, 300, 30);
-        content.add(jLabelNameSeller);
+        //Label - PHONE SELLER
+        jLabelPhoneSeller = new JLabel("Phone seller", JLabel.LEFT);
+        jLabelPhoneSeller.setBounds(20, 80, 300, 30);
+        content.add(jLabelPhoneSeller);
 
+        //TEXT AREA - PHONE SELLER
         phoneSellerTextArea = new JTextArea("");
         phoneSellerTextArea.setBounds(20, 110, 200, 40);
         content.add(phoneSellerTextArea);//
 
+
         
-        
-        
-        jLabelMoneySellers = new JLabel("Earnings :", JLabel.LEFT);
-        jLabelMoneySellers.setBounds(500, 400, 500, 30);
-        content.add(jLabelMoneySellers);
-        
-        
-        JLabel jLabelMoneySellersTitle = new JLabel("Select seller to show Earnings)", JLabel.LEFT);
+        //SELECTION OF SELLERS
+        JLabel jLabelMoneySellersTitle = new JLabel("Select seller to show Earnings", JLabel.LEFT);
         jLabelMoneySellersTitle.setBounds(500, 350, 500, 30);
         content.add(jLabelMoneySellersTitle);
-        
         List<Seller> sellers = sellerServices.getAllSellers();
-        
+
+        // Earnings LABEL
+        jLabelMoneySellers = new JLabel("EARNINGS :", JLabel.LEFT);
+        jLabelMoneySellers.setBounds(500, 400, 500, 30);
+        content.add(jLabelMoneySellers);
+
+        //Date Sale
+        jLabelDateSale = new JLabel("Sale Date :", JLabel.LEFT);
+        jLabelDateSale.setBounds(770, 30, 500, 30);
+        content.add(jLabelDateSale);
+
+        //to show  the Sellers
         if(sellers!= null)
             comboMoneySellers = new JComboBox(sellers.toArray());//send the list
         else
             comboMoneySellers = new JComboBox();
-        
-        comboMoneySellers.setPreferredSize(new Dimension(285, 20));
+
+        //Settings of the combo of the seller
+        comboMoneySellers.setPreferredSize(new Dimension(285, 40));
         comboMoneySellers.setFont(new Font("Helvetica", Font.ROMAN_BASELINE, 13));
         comboMoneySellers.setBounds(500, 380, 400, 20);
         content.add(comboMoneySellers);
         
         
-        jLabelallSellers = new JLabel("Register an Album for this seller", JLabel.LEFT);
+        jLabelallSellers = new JLabel("Register Album for this Seller", JLabel.LEFT);
         jLabelallSellers.setBounds(20, 220, 300, 30);
         content.add(jLabelallSellers);
 
+        //SHOWING REGISTRATION OF THE SELLERS
         if(sellers != null){
             comboAllSellers = new JComboBox(sellers.toArray());
         }else{
             comboAllSellers = new JComboBox();
         }
-                
+
+        //SETTINGS OF THE REGISTRATION OF THE ALBUM -SELLER
         comboAllSellers.setPreferredSize(new Dimension(285, 20));
         comboAllSellers.setFont(new Font("Helvetica", Font.ROMAN_BASELINE, 13));
         comboAllSellers.setBounds(20, 260, 400, 20);
 
-        jLabelVenta = new JLabel("Sale this Album(Selected)", JLabel.LEFT);
+        //SALE LABEL
+        jLabelVenta = new JLabel("SELL ALBUM ", JLabel.LEFT);
         jLabelVenta.setBounds(470, 30, 300, 30);
         content.add(jLabelVenta);
         
         List<Album> albumsAll = albumServices.getAllAlbums("en_sotano = 0 AND sold_on = 0");
+
+        //COMBO BOX FOR ALBUMS TO SALE
         if(albumsAll!=null){
             comboAllAlbums = new JComboBox(albumsAll.toArray());
         }else{
             comboAllAlbums = new JComboBox();
         }
-        
+
+        //COMBO SETTINGS FOR ALBUM LIST
         comboAllAlbums.setPreferredSize(new Dimension(285, 20));
         comboAllAlbums.setFont(new Font("Helvetica", Font.ROMAN_BASELINE, 13));
         comboAllAlbums.setBounds(470, 70, 520, 20);
         content.add(comboAllAlbums);
         
-        
+        //Send to Bargain Basement -LABEL
         jLabelsotano = new JLabel("Send to Bargain Basement", JLabel.LEFT);
         jLabelsotano.setBounds(470, 140, 300, 30);
         content.add(jLabelsotano);
-        
+
+        //Combo box fot Bargains Basement albums
         if(albumsAll!=null){
             comboSotanoAlbums = new JComboBox(albumsAll.toArray());
         }else{
             comboSotanoAlbums = new JComboBox();
         }
-        
+
+        //Settings for Basement albums
         comboSotanoAlbums.setPreferredSize(new Dimension(285, 20));
         comboSotanoAlbums.setFont(new Font("Helvetica", Font.ROMAN_BASELINE, 13));
         comboSotanoAlbums.setBounds(470, 170, 520, 20);
@@ -187,6 +206,7 @@ public class SellersView extends JFrame {
                 Seller seller = (Seller) comboMoneySellers.getSelectedItem();
                 
                 if(seller!=null){
+                    //Will modify the string of the Earnings to show How much we earn per seller
                     String earnings = "This is 40% of their albums sold = "+sellerServices.getEarnings(seller.getId());
                 
                     jLabelMoneySellers.setText(earnings);
@@ -199,6 +219,7 @@ public class SellersView extends JFrame {
 
         content.add(comboAllSellers);
 
+       //
         albumTitleTextArea = new JTextArea("Enter the title");
         albumTitleTextArea.setBounds(20, 300, 200, 40);
         content.add(albumTitleTextArea);
@@ -258,7 +279,7 @@ public class SellersView extends JFrame {
             }
         });
 
-        JButton addAlbumButton = new JButton("Add new album");
+        JButton addAlbumButton = new JButton("Add New album");
         //OKButton.addActionListener(new MyAction());
         addAlbumButton.setBounds(240, 300, 200, 40);
         content.add(addAlbumButton, BorderLayout.CENTER);
@@ -273,17 +294,21 @@ public class SellersView extends JFrame {
                     String albumTitleNew = albumTitleTextArea.getText();
                     if (!albumTitleNew.isEmpty()) {
                         newAlbum.setTitle(albumTitleNew);
+
                     }
 
                     String albumArtistNameNew = albumArtistNameTextArea.getText();
 
                     if (!albumArtistNameNew.isEmpty()) {
                         newAlbum.setArtistName(albumArtistNameNew);
+
                     }
 
                     String priceAlbumNew = albumPriceTextArea.getText();
                     if (!priceAlbumNew.isEmpty()) {
                         newAlbum.setPrice(Double.parseDouble(priceAlbumNew));
+
+
                     }
                     
                     newAlbum.setInSotano(0);
@@ -292,21 +317,22 @@ public class SellersView extends JFrame {
                     Seller sellerSeleted = (Seller) comboAllSellers.getSelectedItem();
 
                     if (albumServices.insert(newAlbum, sellerSeleted)) {
+
                         message.setText("Album new successful");
                         newAlbum.setId(albumServices.getLastInsert());
                         
                         comboAllAlbums.addItem(newAlbum);
                         comboSotanoAlbums.addItem(newAlbum);
                         
-                        albumTitleTextArea.setText("");
-                        albumArtistNameTextArea.setText("");
-                        albumPriceTextArea.setText("");
+                        albumTitleTextArea.setText("Album Title");
+                        albumArtistNameTextArea.setText("Artist Name");
+                        albumPriceTextArea.setText("Album Price");
 
                     } else {
-                        message.setText("Error adding new Album");
+                        message.setText("Error Adding new Album");
                     }
                 }catch(Exception ex){
-                    message.setText("Error adding new Album, please check the parameters");
+                    message.setText("Error adding new Album, Please Check the Text Areas");
                 }
             }
         });
@@ -329,10 +355,12 @@ public class SellersView extends JFrame {
                     sale.setDate_sale(new Date());
                     sale.setPrice(albumSeleted.getPrice());
 
+
                     if(salesServices.insert(albumSeleted, sale)){
                         comboAllAlbums.removeItem(albumSeleted);
                         comboSotanoAlbums.removeItem(albumSeleted);
                         message.setText("Sale successful!");
+                        jLabelDateSale.setText("Date Sale " + sale.getDate_sale());
                     }else{
                         message.setText("Error on sale");
                     }
@@ -359,7 +387,7 @@ public class SellersView extends JFrame {
                         comboAllAlbums.removeItem(albumSeleted);
                         comboSotanoAlbums.removeItem(albumSeleted);
 
-                        message.setText("Album " + albumSeleted.getTitle()+ "was sent to the Basement");
+                        message.setText("Album  \" " + albumSeleted.getTitle()+ "\" was sent to the Basement");
                     }
                 
                 }
@@ -427,7 +455,7 @@ public class SellersView extends JFrame {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);   //Quit the program when we close this window
         this.setContentPane(content);
         this.setSize(screenSize+550, screenSize+200);
-        this.setLocation(20,20);    //Where on the screen will this window appear?
+        this.setLocation(40,40);    //Where on the screen will this window appear?
         this.setVisible(true);
     }
 

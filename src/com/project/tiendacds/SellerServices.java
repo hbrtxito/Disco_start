@@ -25,7 +25,7 @@ public class SellerServices {
     public JdbcHelper jdbcHelper = new JdbcHelper();
 
 /**
- * Metodo para obtener un SELLER
+ * Method to get a  SELLER
  * params - id de seller
  */
     public Seller getByIndex(String id) {
@@ -53,11 +53,11 @@ public class SellerServices {
 
 
 /**
- * Metodo para obtener todos los SELLERs de la base de datos
- * params - ninguno
+ * Method to get all SELLERs of the database
+ * params - none
  */
     public List<Seller> getAllSellers() {
-	//campos en la db recuperables
+	//field of the databases
         String[] array = {"name", "phone", "id"};
         try {
 
@@ -88,7 +88,7 @@ public class SellerServices {
 
 /**
  * Method to insert a SELLER in the db
- * params - objeto seller
+ * params - object seller
  */
     public boolean insert(Seller seller) {
 
@@ -103,7 +103,7 @@ public class SellerServices {
 
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
-                System.out.println("A new seller was inserted successfully!");
+                System.out.println("A New Seller Was Inserted Successfully!");
                 return true;
             }
         } catch (SQLException ex) {
@@ -112,8 +112,8 @@ public class SellerServices {
         return false;
     }
 /**
- * Metodo para retornar el id del ultimo seller insertado
- * params - ninguno
+ * Method to return the id of the last seller inserted
+ * params - none
  */
     public int getLastInsert() {
 
@@ -122,14 +122,14 @@ public class SellerServices {
     }
     
 /**
- * Metodo para retornar las ganancias de un seller especifico
+ * Method to return the earning of a given seller
  * params - seller_id
  */
     public double getEarnings(int seller_id) {
        
         try {
 		//calculation to get the earning for me :)
-		// Query SQL que usa la funcion SUM()
+		// Query SQL que usa la function SUM()
             String sql = "SELECT sum(s.price)*0.4 FROM disc_store_db.sales s join album a on s.album_id = a.id where seller_id = " + seller_id; 
             
             PreparedStatement statement = jdbcHelper.getConnection().prepareStatement(sql);
@@ -137,7 +137,7 @@ public class SellerServices {
             ResultSet result = statement.executeQuery(sql);
             
             while (result.next()) {
-                return result.getDouble(1);//Se obtiene el calculo de la ganancia desde la base de datos
+                return result.getDouble(1);//Get the earnings from the data base
             }
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());

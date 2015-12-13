@@ -5,6 +5,7 @@
  */
 package com.project.tiendacds;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -33,8 +34,9 @@ public class Sales {
         this.album_id = album_id;
     }
 
-    public Date getDate_sale() {
-        return date_sale;
+    public String getDate_sale() {
+        String  date = new SimpleDateFormat("dd/MM/yyyy").format(date_sale);
+        return date;
     }
 
     public void setDate_sale(Date date_sale) {

@@ -43,10 +43,10 @@ public class Seller implements Serializable{
         this.phone = phone;
     }
 
-	//hacemos Override sobre el metodo toString
+	// Override To String Method
     @Override
     public String toString() {
-        return "Seller{" + "id=" + id + ", name=" + name + ", phone=" + phone + '}';
+        return "Seller ID: " + id + "  Name: " + name + "   Phone: " + phone ;
     }
     
 }

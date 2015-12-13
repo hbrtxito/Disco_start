@@ -22,7 +22,7 @@ public class JdbcHelper {
     // connection data to the database
     final private String dbURL = "jdbc:mysql://localhost:3306/disc_store_db";
     final private String username = "root";
-    final private String password = "itecitec";
+    final private String password = "Hp2211x1!";
     private Connection conn;// connection with th database
 
     public JdbcHelper() {
