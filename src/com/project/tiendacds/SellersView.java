@@ -5,33 +5,38 @@
  */
 package com.project.tiendacds;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
+
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import javax.imageio.ImageIO;
-import javax.swing.AbstractAction;
-import javax.swing.DefaultListModel;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.WindowConstants;
 
+
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.util.regex.Pattern;
+
+import org.jfree.chart.*;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.block.BlockBorder;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.chart.renderer.category.IntervalBarRenderer;
+import org.jfree.chart.title.TextTitle;
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.ui.ApplicationFrame;
+import org.jfree.ui.RefineryUtilities;
 /**
  *
  * @author
@@ -329,11 +334,44 @@ public class SellersView extends JFrame {
             }
         });
         content.add(addAlbumButton, BorderLayout.CENTER);
+        ArrayList<Double> mes = new ArrayList<>();
+
+        for (int i =0  ; i<12 ; i++){
+            Double temp = sellerServices.getEarningspermoth(12);
+            mes.add(temp);
+
+        }
+
+
 
         // to draw the charts
         JButton Monthly_Graphics = new JButton("Monthly Earnings ");
-        Monthly_Graphics.setBounds(500, 100, 200, 40);
+        Monthly_Graphics.setBounds(500, 350, 200, 40);
         content.add(Monthly_Graphics, BorderLayout.CENTER);
+
+        Monthly_Graphics.addActionListener(new AbstractAction("add") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                DefaultCategoryDataset dcd = new DefaultCategoryDataset();
+                dcd.setValue(11.5,"Earnings", "September");
+                dcd.setValue(168.8,"Earnings", "October");
+                dcd.setValue(58.8,"Earnings", "November");
+                dcd.setValue(mes.get(1),"Earnings", "December");
+
+                JFreeChart jFreeChart = ChartFactory.createBarChart("Monthly Earnings","Seller Name ","Earnings",dcd
+                        ,PlotOrientation.VERTICAL,true,true,false);
+                CategoryPlot plot = jFreeChart.getCategoryPlot();
+                plot.setRangeGridlinePaint(Color.black);
+
+
+                ChartFrame chrtFrame = new ChartFrame("Student Record", jFreeChart, true);
+
+                chrtFrame.setVisible(true);
+                chrtFrame.setSize(500,400);
+
+            }
+        });
 
 
         //---------------

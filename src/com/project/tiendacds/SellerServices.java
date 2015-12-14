@@ -125,12 +125,12 @@ public class SellerServices {
  * Method to return the earning of a given seller
  * params - seller_id
  */
-    public double getEarnings(int seller_id) {
+    public double getEarningspermoth(int month) {
        
         try {
 		//calculation to get the earning for me :)
 		// Query SQL que usa la function SUM()
-            String sql = "SELECT sum(s.price)*0.4 FROM disc_store_db.sales s join album a on s.album_id = a.id where seller_id = " + seller_id; 
+            String sql = "SELECT sum(price)*0.4 FROM disc_store_db.sales Where MONTH(date_sale) = " + month;
             
             PreparedStatement statement = jdbcHelper.getConnection().prepareStatement(sql);
 
@@ -144,5 +144,24 @@ public class SellerServices {
         }
         return 0;
     }
-    
+    public double getEarnings(int seller_id) {
+
+        try {
+            //calculation to get the earning for me :)
+            // Query SQL que usa la function SUM()
+            String sql = "SELECT sum(s.price)*0.4 FROM disc_store_db.sales s join album a on s.album_id = a.id where seller_id = " + seller_id;
+
+            PreparedStatement statement = jdbcHelper.getConnection().prepareStatement(sql);
+
+            ResultSet result = statement.executeQuery(sql);
+
+            while (result.next()) {
+                return result.getDouble(1);//Get the earnings from the data base
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        return 0;
+    }
+
 }
