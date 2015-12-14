@@ -115,17 +115,17 @@ public class SellersView extends JFrame {
 
         //SELECTION OF SELLERS
         jLabelMoneySellers = new JLabel("EARNINGS: ", JLabel.LEFT);
-        jLabelMoneySellers.setBounds(500, 400, 500, 30);
+        jLabelMoneySellers.setBounds(500, 450, 500, 30);
         content.add(jLabelMoneySellers);
         List<Seller> sellers = sellerServices.getAllSellers();
 
         // Earnings LABEL
         JLabel jLabelMoneySellersTitle = new JLabel("Select Seller to Show Earnings", JLabel.LEFT);
-        jLabelMoneySellersTitle.setBounds(500, 350, 500, 30);
+        jLabelMoneySellersTitle.setBounds(500, 390, 500, 30);
         content.add(jLabelMoneySellersTitle);
 
         //Date Sale
-        jLabelDateSale = new JLabel("Sale Date :", JLabel.LEFT);
+        jLabelDateSale = new JLabel("DATE :", JLabel.LEFT);
         jLabelDateSale.setBounds(770, 30, 500, 30);
         content.add(jLabelDateSale);
 
@@ -136,13 +136,13 @@ public class SellersView extends JFrame {
             comboMoneySellers = new JComboBox();
         }
 
-        //Settings of the combo of the seller
+        //Settings of the combo of the seller - sHOW Earnings
         comboMoneySellers.setPreferredSize(new Dimension(285, 20));
         comboMoneySellers.setFont(new Font("Helvetica", Font.ROMAN_BASELINE, 13));
-        comboMoneySellers.setBounds(500, 380, 400, 20);
+        comboMoneySellers.setBounds(500, 420, 400, 27);
         content.add(comboMoneySellers);
 
-        jLabelallSellers = new JLabel("Register an Album for this Seller", JLabel.LEFT);
+        jLabelallSellers = new JLabel("Register Album for this Seller", JLabel.LEFT);
         jLabelallSellers.setBounds(20, 220, 300, 30);
         content.add(jLabelallSellers);
 
@@ -155,11 +155,11 @@ public class SellersView extends JFrame {
         //SETTINGS OF THE REGISTRATION OF THE ALBUM -SELLER
         comboAllSellers.setPreferredSize(new Dimension(285, 20));
         comboAllSellers.setFont(new Font("Helvetica", Font.ROMAN_BASELINE, 13));
-        comboAllSellers.setBounds(20, 260, 400, 20);
+        comboAllSellers.setBounds(20, 260, 400, 27);
 
         //SALE LABEL
         jLabelVenta = new JLabel("SELL ALBUM", JLabel.LEFT);
-        jLabelVenta.setBounds(470, 30, 300, 30);
+        jLabelVenta.setBounds(500, 30, 300, 30);
         content.add(jLabelVenta);
 
         List<Album> albumsAll = albumServices.getAllAlbums("en_sotano = 0 AND sold_on = 0");
@@ -173,12 +173,12 @@ public class SellersView extends JFrame {
 
         comboAllAlbums.setPreferredSize(new Dimension(285, 20));
         comboAllAlbums.setFont(new Font("Helvetica", Font.ROMAN_BASELINE, 13));
-        comboAllAlbums.setBounds(470, 70, 520, 20);
+        comboAllAlbums.setBounds(500, 60, 520, 27);
         content.add(comboAllAlbums);
 
         //Send to Bargain Basement -LABEL
-        jLabelsotano = new JLabel("Send to the Bargain Baseent", JLabel.LEFT);
-        jLabelsotano.setBounds(470, 140, 300, 30);
+        jLabelsotano = new JLabel("BARGAIN BASEMENT", JLabel.LEFT);
+        jLabelsotano.setBounds(500, 140, 300, 30);
         content.add(jLabelsotano);
         //Combo box fot Bargains Basement albums
         if (albumsAll != null) {
@@ -189,7 +189,7 @@ public class SellersView extends JFrame {
 
         comboSotanoAlbums.setPreferredSize(new Dimension(285, 20));
         comboSotanoAlbums.setFont(new Font("Helvetica", Font.ROMAN_BASELINE, 13));
-        comboSotanoAlbums.setBounds(470, 170, 520, 20);
+        comboSotanoAlbums.setBounds(500, 170, 520, 27);
         content.add(comboSotanoAlbums);
 
         comboMoneySellers.addActionListener(new ActionListener() {
@@ -200,7 +200,7 @@ public class SellersView extends JFrame {
 
                 if (seller != null) {
                     //Will modify the string of the Earnings to show How much we earn per seller
-                    String earnings = "This is 40% of their albums sold = " + sellerServices.getEarnings(seller.getId());
+                    String earnings = " EARNINGS:  This is 40% of their albums sold = " + sellerServices.getEarnings(seller.getId()) + " Dollars";
 
                     jLabelMoneySellers.setText(earnings);
                 }
@@ -232,7 +232,7 @@ public class SellersView extends JFrame {
         message.setBounds(300, 600, 500, 40);
         content.add(message);
 
-        JButton addSellerButton = new JButton("Add new seller");
+        JButton addSellerButton = new JButton("Add New seller");
 
         addSellerButton.setBounds(240, 40, 200, 40);
         content.add(addSellerButton, BorderLayout.CENTER);
@@ -330,10 +330,16 @@ public class SellersView extends JFrame {
         });
         content.add(addAlbumButton, BorderLayout.CENTER);
 
+        // to draw the charts
+        JButton Monthly_Graphics = new JButton("Monthly Earnings ");
+        Monthly_Graphics.setBounds(500, 100, 200, 40);
+        content.add(Monthly_Graphics, BorderLayout.CENTER);
+
+
         //---------------
-        JButton sellAlbumButton = new JButton("Sell Album Selected");
+        JButton sellAlbumButton = new JButton("Sell Album ");
         //OKButton.addActionListener(new MyAction());
-        sellAlbumButton.setBounds(770, 100, 200, 40);
+        sellAlbumButton.setBounds(800, 100, 200, 40);
         content.add(sellAlbumButton, BorderLayout.CENTER);
         sellAlbumButton.addActionListener(new AbstractAction("add") {
             @Override
@@ -363,7 +369,7 @@ public class SellersView extends JFrame {
         //--------------------------
         JButton passSotanoButton = new JButton("Send to Bargain Basement");
 
-        passSotanoButton.setBounds(780, 220, 200, 40);
+        passSotanoButton.setBounds(800, 220, 200, 40);
         content.add(passSotanoButton, BorderLayout.CENTER);
         passSotanoButton.addActionListener(new AbstractAction("add") {
             @Override
@@ -387,13 +393,15 @@ public class SellersView extends JFrame {
         //-----------------------
         JButton searchButton = new JButton("Search...");
         //OKButton.addActionListener(new MyAction());
-        searchButton.setBounds(750, 450, 200, 40);
+        searchButton.setBounds(750, 500, 200, 30);
         content.add(searchButton, BorderLayout.CENTER);
         searchButton.addActionListener(new AbstractAction("add") {
             @Override
             public void actionPerformed(ActionEvent e) {
 
                 List<Album> list = albumServices.getByTitle(textField.getText());
+                //This is just in case that I want to implement a search for ID
+                //List<Album> list2 = albumServices.getBySellerId(textField.getText());
 
                 model.removeAllElements();
 
@@ -410,12 +418,14 @@ public class SellersView extends JFrame {
         });
         content.add(passSotanoButton, BorderLayout.CENTER);
 
+        //Text Area to Search an Album
         textField = new JTextField(20);
-        textField.setBounds(500, 450, 200, 20);
+        textField.setBounds(500, 500, 200, 30);
         content.add(textField);
 
+        //Scroll pane to see the results of the search
         JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setBounds(500, 500, 450, 100);
+        scrollPane.setBounds(500, 540, 450, 110);
         listSearch = new JList(model);
         listSearch.setBounds(500, 500, 450, 100);
 

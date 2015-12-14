@@ -53,10 +53,10 @@ public class AlbumServices {
  * Method to return a list of albums  by a given Seller
  * params - seller_id
  */
-    public List<Album> getBySellerId(String seller_id) {
+   /* public List<Album> getBySellerId(String seller_id) {
 
         try {
-// usamos el helper para hacer el select
+            // usamos el helper para hacer el select
             ResultSet result = jdbcHelper.select("album", columns, " seller_id = " + seller_id);
 
             List<Album> allAlbums = null;
@@ -84,7 +84,7 @@ public class AlbumServices {
 
         }
         return null;
-    }
+    }*/
 /**
  * Methd to get a album list given a condition
  * params - condition
